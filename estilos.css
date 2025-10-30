@@ -1,0 +1,473 @@
+/* ================================================= */
+/* 01. GENERALES Y TIPOGRAFÍA                        */
+/* ================================================= */
+
+:root {
+    --color-fondo: #0e0e1a;
+    --color-neon-principal: #f89645; /* Rosa Neón/Magenta */
+    --color-neon-secundario: #ffd866; /* Amarillo Neón */
+    --color-neon-terciario: #07fdc0; /* Azul Neón/Cian */
+    --sombra-neon: 0 0 5px var(--color-neon-principal), 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 40px var(--color-neon-principal);
+    --sombra-neon-amarillo: 0 0 5px var(--color-neon-secundario), 0 0 10px var(--color-neon-secundario);
+    --sombra-neon-azul: 0 0 5px var(--color-neon-terciario), 0 0 10px var(--color-neon-terciario);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-fondo);
+    color: #f0f0f0;
+    overflow-x: hidden; /* Previene scroll lateral por animaciones */
+    position: relative; /* Necesario para elementos fijos como el control de música */
+    min-height: 100vh;
+}
+
+/* Scrollbar personalizado para estética oscura */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--color-neon-principal);
+    border-radius: 4px;
+}
+body::-webkit-scrollbar-track {
+    background-color: #1a1a2e;
+}
+
+/* Estilos de Tipografía */
+h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: var(--sombra-neon);
+    animation: brillo-suave 4s infinite alternate;
+}
+
+h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    color: var(--color-neon-secundario);
+    margin-bottom: 10px;
+    text-shadow: var(--sombra-neon-amarillo);
+}
+
+p {
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Animación de brillo sutil para el título principal */
+@keyframes brillo-suave {
+    0% {
+        text-shadow: 0 0 5px var(--color-neon-principal), 0 0 15px var(--color-neon-principal);
+    }
+    100% {
+        text-shadow: 0 0 8px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 30px var(--color-neon-principal);
+    }
+}
+
+
+/* ================================================= */
+/* 02. HEADER (HERO) Y BOTONES                       */
+/* ================================================= */
+
+.hero {
+    text-align: center;
+    padding: 50px 20px 20px;
+    position: relative;
+    z-index: 10;
+    background: rgba(14, 14, 26, 0.9); /* Fondo semi-transparente para destacar */
+    border-bottom: 2px solid var(--color-neon-principal);
+}
+
+.hero p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-neon-terciario);
+    text-shadow: 0 0 5px rgba(102, 224, 255, 0.5);
+    margin-top: 15px;
+}
+
+/* Estilo del botón NEÓN */
+.boton-neon {
+    background: none;
+    border: 2px solid var(--color-neon-principal);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: all 0.3s ease-in-out;
+    text-shadow: 0 0 4px #fff, 0 0 10px var(--color-neon-principal);
+    box-shadow: 0 0 10px var(--color-neon-principal);
+    position: relative;
+    overflow: hidden;
+}
+
+.boton-neon:hover {
+    color: var(--color-fondo);
+    background-color: var(--color-neon-principal);
+    box-shadow: 0 0 15px var(--color-neon-principal), 0 0 30px var(--color-neon-principal);
+    transform: translateY(-2px);
+}
+.boton-neon:active {
+    transform: translateY(0);
+}
+
+
+/* ================================================= */
+/* 03. JARDÍN DE GIRASOLES                           */
+/* ================================================= */
+
+.jardin-contenedor {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 180px); /* Ajustar según la altura del header */
+    overflow: hidden;
+    padding-bottom: 20px; /* Espacio inferior para el girasol más bajo */
+}
+
+.girasol {
+    position: absolute;
+    cursor: pointer;
+    transform-origin: center bottom; /* El punto de pivote para el balanceo */
+    transition: transform 0.3s;
+    will-change: transform, opacity;
+}
+
+/* 🌻 OPTIMIZACIÓN DE RENDIMIENTO: ANIMACIÓN DE VIENTO VIA CSS 🌻 */
+
+/* 1. Definición de la animación de viento (mucho más eficiente) */
+@keyframes balanceo {
+    0%, 100% { transform: rotateZ(0deg); }
+    50% { transform: rotateZ(3deg); } /* Rotación sutil de 3 grados */
+}
+
+/* 2. Aplicación de la animación de viento (el JS añade la clase) */
+.girasol-animado-css {
+    animation: balanceo 10s ease-in-out infinite alternate;
+    will-change: transform; /* Hint al navegador para optimizar */
+}
+
+/* Estructura del Girasol */
+
+.tallo {
+    position: absolute;
+    width: 4px;
+    height: 300px;
+    background-color: #008000; /* Verde oscuro */
+    bottom: -300px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.centro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    
+    /* 🌻 OPTIMIZACIÓN: Estilo BASE del centro. La imagen se carga solo en el pop-up 🌻 */
+    background-color: #4b2a0c; /* Café oscuro base */
+    border: 3px solid #ffc90e; /* Borde amarillo claro */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    
+    top: 0;
+    left: 0;
+    z-index: 3;
+    overflow: hidden;
+}
+
+.petalo {
+    position: absolute;
+    width: 30px;
+    height: 80px;
+    background-color: var(--color-neon-secundario);
+    border-radius: 50% / 100% 100% 0 0;
+    transform-origin: center bottom;
+    box-shadow: 0 0 5px var(--color-neon-secundario);
+    z-index: 2;
+    top: calc(50% - 15px); /* Posicionar el centro del pétalo sobre el centro de la flor */
+    left: calc(50% - 15px);
+    will-change: transform, opacity;
+}
+
+
+/* ================================================= */
+/* 04. VISOR GLOBAL DE FOTOS (POP-UP)                */
+/* ================================================= */
+
+#visor-global {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#visor-global.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.visor-contenido {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.marco-neon-rectangular {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border: 3px solid var(--color-neon-terciario);
+    box-shadow: var(--sombra-neon-azul);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#visor-imagen {
+    max-width: 100%;
+    height: auto;
+    max-height: 40vh; /* Limitar altura de la imagen en móviles */
+    display: block;
+    border-radius: 5px;
+    object-fit: contain;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.girasol-info-texto {
+    background-color: #2a2a44;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 5px solid var(--color-neon-principal);
+}
+
+.referencia-biblica {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-neon-terciario);
+    margin-top: 10px;
+}
+
+.boton-cerrar-foto {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    text-shadow: var(--sombra-neon);
+    transition: color 0.2s;
+    z-index: 1001;
+}
+
+.boton-cerrar-foto:hover {
+    color: var(--color-neon-principal);
+}
+
+/* Media Query para el pop-up en escritorio */
+@media (min-width: 768px) {
+    .visor-contenido {
+        flex-direction: row;
+        gap: 30px;
+        max-width: 800px;
+    }
+    .marco-neon-rectangular {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    #visor-imagen {
+        max-height: 100%;
+        max-width: 300px;
+    }
+    .boton-cerrar-foto {
+        top: -15px;
+        right: -15px;
+    }
+}
+
+
+/* ================================================= */
+/* 05. VISOR DE VIDEO (POP-UP)                       */
+/* ================================================= */
+
+#visor-video-global {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#visor-video-global.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.visor-contenido-video {
+    position: relative;
+    max-width: 95%;
+    max-height: 95%;
+    width: 800px; /* Ancho máximo para el video */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.marco-neon-rectangular-video {
+    background-color: #1a1a2e;
+    padding: 10px;
+    border: 3px solid var(--color-neon-principal);
+    box-shadow: var(--sombra-neon);
+    border-radius: 10px;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Formato de video estándar */
+}
+
+#video-player {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.boton-cerrar-video {
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    background: var(--color-neon-principal);
+    border: 2px solid #fff;
+    color: var(--color-fondo);
+    font-size: 1.5rem;
+    padding: 0 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1.2;
+    box-shadow: var(--sombra-neon);
+    z-index: 2001;
+    transition: transform 0.2s;
+}
+
+.boton-cerrar-video:hover {
+    transform: scale(1.1);
+}
+
+.controles-video {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.boton-control {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.descargar {
+    background-color: var(--color-neon-terciario);
+    color: var(--color-fondo);
+    box-shadow: 0 0 8px var(--color-neon-terciario);
+}
+.descargar:hover {
+    background-color: #fff;
+}
+
+.volver {
+    background-color: var(--color-neon-secundario);
+    color: var(--color-fondo);
+    box-shadow: 0 0 8px var(--color-neon-secundario);
+}
+.volver:hover {
+    background-color: #fff;
+}
+
+
+/* ================================================= */
+/* 06. CONTROL DE MÚSICA FLOTANTE                    */
+/* ================================================= */
+
+.control-musica-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(34, 34, 51, 0.8);
+    border: 2px solid var(--color-neon-principal);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    z-index: 3000;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.control-musica-flotante.activo {
+    border-color: var(--color-neon-principal);
+    box-shadow: var(--sombra-neon);
+    animation: pulsar-musica 2s infinite;
+}
+
+.control-musica-flotante:hover {
+    background-color: rgba(34, 34, 51, 1);
+}
+
+@keyframes pulsar-musica {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 116, 164, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 116, 164, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 116, 164, 0);
+    }
+}

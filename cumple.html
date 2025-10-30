@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <audio id="musica-fondo" autoplay loop>
+        <source src="./musica/fondo.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
+    <header class="hero">
+        <h1>¡Nathacha Valentina!</h1>
+        <p>Toca un girasol para abrir un mensaje especial.</p>
+        
+        <button id="abrir-video-btn" class="boton-neon">
+            ▶️ Ver Video
+        </button>
+    </header>
+
+    <div class="jardin-contenedor">
+    </div>
+    
+    <div id="visor-global">
+        <div class="visor-contenido">
+            <button id="cerrar-visor" class="boton-cerrar-foto">&times;</button>
+            
+            <div class="marco-neon-rectangular">
+                
+                <img id="visor-imagen" src="" alt="Foto de Cumpleaños" />
+                
+                <div id="visor-texto" class="girasol-info-texto">
+                    <h3 id="visor-titulo"></h3>
+                    <p id="visor-descripcion"></p>
+                    <span id="visor-referencia" class="referencia-biblica"></span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="visor-video-global">
+        <div class="visor-contenido-video">
+            <button id="cerrar-visor-video" class="boton-cerrar-video">&times;</button>
+            
+            <div class="marco-neon-rectangular-video">
+                
+                <video 
+                    id="video-player"
+                    width="100%" 
+                    height="100%" 
+                    controls 
+                    preload="auto" 
+                    playsinline
+                >
+                    <source src="./video/recuerdo.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+                
+            </div>
+            
+            <div class="controles-video">
+                <a id="descargar-video-link" href="./video/recuerdo.mp4" download="Recuerdo_Especial.mp4" class="boton-control descargar">
+                    ⬇️ Descargar Video (24MB)
+                </a>
+                
+                <button id="volver-al-jardin" class="boton-control volver">
+                    🌸 Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="interactividad.js"></script>
+
+</body>
+</html>
