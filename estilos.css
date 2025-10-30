@@ -1,8 +1,8 @@
 /*
- * Archivo: estilos.css (Versión Final y Optimizada)
+ * Archivo: estilos.css (Versión Final y Optimizada - GRADIENTE EN ENCABEZADO)
  * * INCLUYE:
  * 1. Estilos base y variables neón.
- * 2. Diseño del Header con fondo sólido para legibilidad.
+ * 2. Diseño del Header (HERO) AHORA CON GRADIENTE ANIMADO.
  * 3. Diseño del Jardín con la imagen de fondo aplicada SOLO al contenedor del jardín.
  * 4. Optimización de rendimiento (animación de viento por CSS).
  * 5. AJUSTE DE Z-INDEX para que los girasoles visitados pasen al fondo.
@@ -11,15 +11,21 @@
  */
 
 /* ================================================= */
-/* 01. GENERALES Y TIPOGRAFÍA                        */
+/* 01. GENERALES Y TIPOGRAFÍA                        */
 /* ================================================= */
 
 :root {
     --color-fondo: #0e0e1a;
-    --color-neon-principal: #fa74ff; /* Rosa Neón/Magenta */
-    --color-neon-secundario: #ffd866; /* Amarillo Neón */
-    --color-neon-terciario: #66e0ff; /* Azul Neón/Cian */
-    /* Sombra ajustada para el título principal */
+    --color-neon-principal: #00b8ff; /* Rosa Neón/Magenta (Color del usuario) */
+    --color-neon-secundario: #ffbd08; /* Amarillo Neón (Color del usuario) */
+    --color-neon-terciario: #395bff; /* Azul Neón/Cian (Color del usuario) */
+    
+    /* Colores para el gradiente del ENCABEZADO */
+    --gradient-hero-1: #4205e9; 
+    --gradient-hero-2: #0759f0; 
+    --gradient-hero-3: #45f7d6; 
+    --gradient-hero-4: #1206cc; 
+
     --sombra-neon: 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 30px var(--color-neon-principal), 0 0 50px var(--color-neon-principal);
     --sombra-neon-amarillo: 0 0 5px var(--color-neon-secundario), 0 0 10px var(--color-neon-secundario);
     --sombra-neon-azul: 0 0 5px var(--color-neon-terciario), 0 0 10px var(--color-neon-terciario);
@@ -33,7 +39,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--color-fondo); /* Fondo sólido de respaldo */
+    /* Fondo sólido de respaldo, ya NO ANIMADO */
+    background-color: var(--color-fondo); 
     color: #f0f0f0;
     overflow-x: hidden; 
     position: relative; 
@@ -54,7 +61,7 @@ body::-webkit-scrollbar-track {
 
 /* Estilos de Tipografía */
 h1 {
-    font-family: 'Caveat', cursive;
+    font-family: sans-serif;
     font-size: 3.5rem;
     color: #fff;
     text-shadow: var(--sombra-neon);
@@ -87,16 +94,41 @@ p {
 
 
 /* ================================================= */
-/* 02. HEADER (HERO) Y BOTONES                       */
+/* 02. HEADER (HERO) Y BOTONES (CON GRADIENTE ANIMADO)*/
 /* ================================================= */
+
+/* NUEVOS KEYFRAMES PARA EL GRADIENTE DEL HEADER */
+@keyframes gradient-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
 .hero {
     text-align: center;
     padding: 50px 20px 20px;
     position: relative;
     z-index: 10;
-    /* AJUSTE CLAVE: Fondo SÓLIDO para MÁXIMO CONTRASTE y legibilidad del texto */
-    background: var(--color-fondo); 
+    
+    /* ------------------------------------------------------------------ */
+    /* !!! CONFIGURACIÓN DEL FONDO CON GRADIENTE ANIMADO !!! */
+    /* ------------------------------------------------------------------ */
+    background: linear-gradient(-45deg, 
+        var(--gradient-hero-1), 
+        var(--gradient-hero-2), 
+        var(--gradient-hero-3), 
+        var(--gradient-hero-4)
+    );
+    background-size: 400% 400%; 
+    animation: gradient-flow 20s ease infinite alternate; 
+    /* ------------------------------------------------------------------ */
+    
     border-bottom: 2px solid var(--color-neon-principal);
 }
 
@@ -104,7 +136,8 @@ p {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-neon-terciario);
-    text-shadow: 0 0 5px rgba(102, 224, 255, 0.5);
+    /* Se mantiene la sombra para la legibilidad sobre el gradiente */
+    text-shadow: 0 0 5px var(--color-neon-terciario); 
     margin-top: 15px;
 }
 
@@ -138,7 +171,7 @@ p {
 
 
 /* ================================================= */
-/* 03. JARDÍN DE GIRASOLES                           */
+/* 03. JARDÍN DE GIRASOLES                           */
 /* ================================================= */
 
 .jardin-contenedor {
@@ -190,7 +223,7 @@ p {
     bottom: -300px; 
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1; /* Debe ser z-index: 1 (normal) para no desaparecer al ser visitado */
+    z-index: 1; 
 }
 
 .centro {
@@ -226,7 +259,7 @@ p {
 
 
 /* ================================================= */
-/* 04. VISOR GLOBAL DE FOTOS (POP-UP)                */
+/* 04. VISOR GLOBAL DE FOTOS (POP-UP) - CON GRADIENTE*/
 /* ================================================= */
 
 #visor-global {
@@ -235,7 +268,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.85); 
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -275,16 +308,33 @@ p {
     height: auto;
     max-height: 40vh; 
     display: block;
-    border-radius: 5px;
+    border-radius: 30px;
     object-fit: contain;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .girasol-info-texto {
-    background-color: #2a2a44;
-    padding: 15px;
-    border-radius: 5px;
-    border-left: 5px solid var(--color-neon-principal);
+    /* ------------------------------------------------------------------ */
+    /* !!! CONFIGURACIÓN DEL FONDO CON GRADIENTE ANIMADO !!! */
+    /* ------------------------------------------------------------------ */
+    background: linear-gradient(-45deg, 
+        #246e91, /* Color base oscuro */
+        #171d72, /* Púrpura oscuro */
+        #376db4,
+        #4d2efd  /* Rojo oscuro */
+    );
+    background-size: 400% 400%; 
+    /* Utilizamos la misma animación de flujo que definimos para el .hero */
+    animation: gradient-flow 15s ease infinite alternate; 
+    /* ------------------------------------------------------------------ */
+    
+    padding: 3px; 
+    border-radius: 26px;
+    border-left: 3px solid var(--color-neon-principal);
+    
+    /* Aseguramos que el texto esté sobre el fondo animado */
+    position: relative; 
+    overflow: hidden; 
 }
 
 .referencia-biblica {
@@ -298,8 +348,8 @@ p {
 
 .boton-cerrar-foto {
     position: absolute;
-    top: -30px;
-    right: -30px;
+    top: -15px;
+    right: -15px; 
     background: none;
     border: none;
     color: #fff;
@@ -336,9 +386,8 @@ p {
     }
 }
 
-
 /* ================================================= */
-/* 05. VISOR DE VIDEO (POP-UP)                       */
+/* 05. VISOR DE VIDEO (POP-UP)                       */
 /* ================================================= */
 
 #visor-video-global {
@@ -450,7 +499,7 @@ p {
 
 
 /* ================================================= */
-/* 06. CONTROL DE MÚSICA FLOTANTE                    */
+/* 06. CONTROL DE MÚSICA FLOTANTE                    */
 /* ================================================= */
 
 .control-musica-flotante {

@@ -5,8 +5,8 @@
  * - Optimización de rendimiento (animación CSS y carga diferida de imágenes).
  * - Lógica de inicio de música con el primer clic del usuario.
  * - Ajuste de posición para que todos los girasoles sean visibles.
- * - MODIFICACIÓN CLAVE: Al cerrar el visor, el girasol visitado pasa a z-index: 0, 
- * se vuelve semitransparente y se deshabilita el clic.
+ * - MODIFICACIÓN CLAVE: Lógica para 24 pétalos en cada girasol.
+ * - Ajuste para mover el girasol visitado al fondo (z-index y opacidad).
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,74 +17,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const contenidos = [
         { 
-            titulo: "Fe y Confianza", 
-            descripcion: "Confía en el Señor de todo corazón, y no en tu propia inteligencia. Reconócelo en todos tus caminos, y él allanará tus sendas. ¡El futuro está seguro en sus manos!", 
-            referencia: "Proverbios 3:5-6",
+            titulo: "Fuerza para los Desafíos", 
+            descripcion: "Cuando sientas que la carga es demasiado pesada, recuerda esta promesa. No temas ni te desanimes, porque Él es tu Dios y te sostiene con Su mano victoriosa. ¡Yo creo en ti!", 
+            referencia: "Isaías 41:10",
             foto: './imagenes/foto1.jpg' 
         },
         { 
-            titulo: "La Fuerza que Renueva", 
-            descripcion: "Pero los que confían en el Señor renovarán sus fuerzas; volarán como las águilas; correrán y no se fatigarán, caminarán y no se cansarán.", 
-            referencia: "Isaías 40:31",
+            titulo: "El Descanso en la Tormenta", 
+            descripcion: "Dios es tu refugio seguro en medio del caos. Que este nuevo ciclo te recuerde que, aunque todo se agite, Él es tu pronto auxilio. ¡Pon tu confianza en Él siempre!", 
+            referencia: "Salmo 46:1",
             foto: './imagenes/foto2.jpg' 
         },
         { 
-            titulo: "Luz en el Camino", 
-            descripcion: "Tu palabra es una lámpara a mis pies; es una luz en mi sendero. Que su sabiduría ilumine cada paso de tu nuevo año.", 
-            referencia: "Salmos 119:105",
+            titulo: "Planes de Bienestar", 
+            descripcion: "Que la certeza de que Dios tiene planes perfectos para tu vida llene tu corazón de paz y emoción. ¡Un futuro lleno de esperanza te espera!", 
+            referencia: "Jeremías 29:11",
             foto: './imagenes/foto3.jpg' 
         },
         { 
-            titulo: "Paz que Supera Todo", 
-            descripcion: "Y la paz de Dios, que sobrepasa todo entendimiento, cuidará sus corazones y sus pensamientos en Cristo Jesús.", 
-            referencia: "Filipenses 4:7",
+            titulo: "El Poder de la Fe", 
+            descripcion: "La perseverancia forja el carácter. Mira tus luchas pasadas como escalones. ¡Tu entereza es prueba de que tienes una esperanza inquebrantable!", 
+            referencia: "Romanos 5:3-4",
             foto: './imagenes/foto4.jpg' 
         },
         { 
-            titulo: "Entereza y Esperanza", 
-            descripcion: "Nos gozamos también en los sufrimientos, porque sabemos que el sufrimiento produce perseverancia; la perseverancia, entereza de carácter; la entereza de carácter, esperanza.", 
-            referencia: "Romanos 5:3-4",
+            titulo: "La Renovación Diaria", 
+            descripcion: "No te canses ni te fatigues, tu fuerza no es humana. Espera en Él, y volarás alto como las águilas. ¡Te deseo un año lleno de energía y logros!", 
+            referencia: "Isaías 40:31",
             foto: './imagenes/foto5.jpg' 
         },
+        
+        // DEDICATORIAS SOBRE EL AMOR Y LA PAZ
         { 
-            titulo: "Ánimo y Valentía", 
-            descripcion: "Sé fuerte y valiente. No tengas miedo ni te desanimes, porque el Señor tu Dios estará contigo dondequiera que vayas. ¡Feliz cumpleaños!", 
-            referencia: "Josué 1:9",
+            titulo: "Paz que Tranquiliza", 
+            descripcion: "Deja de lado la ansiedad. En lugar de preocuparte, ora. La paz de Dios es un regalo que cuida tu mente y tu corazón. ¡Que hoy sea un día tranquilo!", 
+            referencia: "Filipenses 4:6-7",
             foto: './imagenes/foto6.jpg' 
         },
         { 
-            titulo: "Propósito Eterno", 
-            descripcion: "Porque yo sé muy bien los planes que tengo para ustedes —afirma el Señor—, planes de bienestar y no de calamidad, a fin de darles un futuro y una esperanza.", 
-            referencia: "Jeremías 29:11",
+            titulo: "El Mayor de los Tesoros", 
+            descripcion: "Mientras caminas, recuerda los pilares: Fe para lo que no ves, Esperanza en el futuro. Pero el motor de tu vida debe ser siempre el amor. ¡Ámalo todo!", 
+            referencia: "1 Corintios 13:13",
             foto: './imagenes/foto7.jpg' 
         },
         { 
-            titulo: "Nueva Creación", 
-            descripcion: "Por lo tanto, si alguno está en Cristo, es una nueva creación. ¡Lo viejo ha pasado, ha llegado ya lo nuevo! Celebra este nuevo capítulo.", 
+            titulo: "Una Nueva Creación", 
+            descripcion: "Celebra este día como un nuevo comienzo. Lo viejo quedó atrás. En Él, has sido hecha nueva, con un propósito fresco y sorprendente. ¡A disfrutar la vida abundante!", 
             referencia: "2 Corintios 5:17",
             foto: './imagenes/foto8.jpg' 
         },
         {
-            titulo: "Alegría Inagotable",
-            descripcion: "La alegría del Señor es nuestra fuerza. Que encuentres motivos para sonreír y celebrar la vida cada día.",
-            referencia: "Nehemías 8:10",
+            titulo: "La Guía en tu Camino",
+            descripcion: "En la oscuridad o en la incertidumbre, Su Palabra es la brújula que necesitas. Que ella ilumine tus pasos y te dé claridad en cada decisión.",
+            referencia: "Salmos 119:105",
             foto: './imagenes/foto9.jpg'
         },
         {
-            titulo: "Crecimiento Constante",
-            descripcion: "No nos desanimamos. Al contrario, aunque por fuera nos vamos desgastando, por dentro nos vamos renovando día tras día. Los sufrimientos son ligeros en comparación a la gloria.",
-            referencia: "2 Corintios 4:16-18",
+            titulo: "Enfocada en lo Correcto",
+            descripcion: "Aun cuando las cosas no salgan como esperabas, confía en Su soberanía. ¡Todas las cosas obran para tu bien porque Él te ama y te ha llamado con un propósito!",
+            referencia: "Romanos 8:28",
             foto: './imagenes/foto10.jpg'
         },
+        
+        // Versículos adicionales para completar los 25 (mezclando nuevos y algunos anteriores)
         { 
-            titulo: "Fuerza en la Debilidad", 
-            descripcion: "Que el amor de Cristo sea el lazo que nos une, hoy y siempre. Disfruta de cada momento.", 
-            referencia: "Colosenses 3:14",
+            titulo: "Ánimo y Valentía", 
+            descripcion: "Sé fuerte y valiente. No tengas miedo ni te desanimes, porque el Señor tu Dios estará contigo dondequiera que vayas. ¡Feliz día!", 
+            referencia: "Josué 1:9",
             foto: './imagenes/foto11.jpg' 
         },
         { 
             titulo: "Bendiciones Diarias", 
-            descripcion: "El Señor te bendiga y te guarde; el Señor haga resplandecer su rostro sobre ti y te dé paz. ¡Muchas felicidades!", 
+            descripcion: "El Señor te bendiga y te guarde; el Señor haga resplandecer su rostro sobre ti y te dé paz. ¡Que su favor te acompañe!", 
             referencia: "Números 6:24-26",
             foto: './imagenes/foto12.jpg' 
         },
@@ -120,50 +124,50 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             titulo: "Un Corazón Fiel", 
-            descripcion: "El que es fiel en lo muy poco, también es fiel en lo mucho; y el que es deshonesto en lo muy poco, también es deshonesto en lo mucho. Que tu fidelidad te guíe.", 
+            descripcion: "El que es fiel en lo muy poco, también es fiel en lo mucho. Que tu fidelidad te guíe y sea tu mayor virtud.", 
             referencia: "Lucas 16:10",
             foto: './imagenes/foto18.jpg' 
         },
         { 
-            titulo: "Paciencia y Fortaleza", 
-            descripcion: "Pero los que esperan en el Señor renovarán sus fuerzas; se remontarán con alas como las águilas, correrán y no se cansarán, caminarán y no se fatigarán. Feliz día!", 
-            referencia: "Isaías 40:31",
+            titulo: "Confianza Plena", 
+            descripcion: "Confía en el Señor de todo corazón, y no en tu propia inteligencia. Reconócelo en todos tus caminos, y él allanará tus sendas.", 
+            referencia: "Proverbios 3:5-6",
             foto: './imagenes/foto19.jpg' 
         },
         { 
-            titulo: "Sabiduría del Corazón", 
-            descripcion: "Confía en el Señor de todo corazón, y no en tu propia inteligencia. Reconócelo en todos tus caminos, y él allanará tus sendas. Un año lleno de decisiones sabias.", 
-            referencia: "Proverbios 3:5-6",
+            titulo: "Paciencia y Esperanza", 
+            descripcion: "Mantengamos firme la esperanza que profesamos, porque fiel es el que hizo la promesa. ¡Tu espera será recompensada!", 
+            referencia: "Hebreos 10:23",
             foto: './imagenes/foto20.jpg' 
         },
         { 
-            titulo: "Renovación y Propósito", 
-            descripcion: "De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas. Un nuevo comienzo para ti.", 
-            referencia: "2 Corintios 5:17",
+            titulo: "Gozo Duradero", 
+            descripcion: "Aún si las circunstancias externas fallan, tu alegría no depende de ellas. Tu gozo se encuentra en el Dios de tu salvación.", 
+            referencia: "Habacuc 3:17-18",
             foto: './imagenes/foto21.jpg' 
         },
         { 
-            titulo: "Gozo Duradero", 
-            descripcion: "Aunque la higuera no florezca ni haya frutos en las vides; aunque falle la cosecha del olivo y los campos no produzcan alimento; aunque se acaben las ovejas del redil y no haya ganado en los establos, con todo, yo me alegraré en el Señor, me regocijaré en el Dios de mi salvación.", 
-            referencia: "Habacuc 3:17-18",
+            titulo: "Protección Divina", 
+            descripcion: "El Señor es mi luz y mi salvación; ¿a quién temeré? Él es la fortaleza de mi vida. ¡Que Su protección te acompañe siempre!", 
+            referencia: "Salmos 27:1",
             foto: './imagenes/foto22.jpg' 
         },
         { 
-            titulo: "Protección Divina", 
-            descripcion: "El Señor es mi luz y mi salvación; ¿a quién temeré? El Señor es la fortaleza de mi vida; ¿de quién tendré temor? Que su protección te acompañe siempre.", 
-            referencia: "Salmos 27:1",
+            titulo: "Generosidad y Bendición", 
+            descripcion: "Dios ama al dador alegre. Que tu corazón sea siempre generoso y que tu alegría al dar sea tu mayor bendición.", 
+            referencia: "2 Corintios 9:7",
             foto: './imagenes/foto23.jpg' 
         },
         { 
-            titulo: "Generosidad y Bendición", 
-            descripcion: "Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque Dios ama al dador alegre. Que tu corazón sea generoso.", 
-            referencia: "2 Corintios 9:7",
+            titulo: "Fe Inquebrantable", 
+            descripcion: "La fe es la certeza de lo que esperas, la convicción de lo que aún no ves. Que tu fe sea la roca inmovible de tu camino.", 
+            referencia: "Hebreos 11:1",
             foto: './imagenes/foto24.jpg' 
         },
         { 
-            titulo: "Fe Inquebrantable", 
-            descripcion: "Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve. Que tu fe sea la roca de tu camino.", 
-            referencia: "Hebreos 11:1",
+            titulo: "Descanso para el Alma", 
+            descripcion: "Si te sientes cansada y agobiada, acércate a Jesús. Él promete darte descanso para tu alma. Su yugo es fácil y ligera su carga.", 
+            referencia: "Mateo 11:28",
             foto: './imagenes/foto25.jpg' 
         },
     ];
@@ -191,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicaFondo = document.getElementById('musica-fondo');
     let musicaIniciada = false; 
     
-    // **VARIABLE NUEVA/MODIFICADA**
-    let girasolActivo = null; // Almacenará la referencia del girasol actualmente abierto
+    // Almacenará la referencia del girasol actualmente abierto
+    let girasolActivo = null; 
 
     
     // -----------------------------------------------------
@@ -222,20 +226,21 @@ document.addEventListener('DOMContentLoaded', () => {
         centro.classList.add('centro');
         girasol.appendChild(centro);
 
-        // Crear los pétalos (12 pétalos)
-        const NUM_PETALOS = 12;
+        // Crear los PÉTALOS (MUCHOS) y ROTARLOS alrededor del centro
+        const NUM_PETALOS = 25; 
         for (let i = 0; i < NUM_PETALOS; i++) {
             const petalo = document.createElement('div');
             petalo.classList.add('petalo');
             
             const rotation = i * (360 / NUM_PETALOS);
             
+            // Aplicamos la rotación y una pequeña traslación para separarlos del centro
             petalo.style.transform = `
                 rotate(${rotation}deg) 
-                translateY(-50px)
+                translateY(-35px) 
             `; 
             
-            petalo.style.opacity = 0; 
+            petalo.style.opacity = 0; // Inicialmente ocultos para la animación
             girasol.appendChild(petalo);
         }
 
@@ -277,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
             opacity: [0, 1],
             scaleY: [0, 1], 
             duration: 800,
-            delay: anime.stagger(50) 
+            delay: anime.stagger(20) // Retraso más pequeño para que los 24 pétalos aparezcan rápido
         }, '-=800'); 
     }
 
@@ -308,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visorGlobal.classList.remove('activo');
         document.body.style.overflow = ''; 
         
-        // **NUEVO CÓDIGO CLAVE:** Lógica para mover el girasol al fondo
+        // Lógica para mover el girasol al fondo
         if (girasolActivo) {
             // 1. Mueve el girasol detrás de los demás (z-index: 0, ya que los demás tienen z-index: 1 en CSS)
             girasolActivo.style.zIndex = '0'; 
@@ -322,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Limpia la referencia
             girasolActivo = null;
         }
-        // ------------------------------------------------------------------
     }
 
     cerrarBoton.addEventListener('click', cerrarVisor);
@@ -338,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function manejarClickGirasol(event) {
         let targetGirasol = event.currentTarget;
         
-        // **LÍNEA NUEVA:** Almacenamos la referencia del girasol activo
+        // Almacenamos la referencia del girasol activo
         girasolActivo = targetGirasol; 
         
         // LÓGICA DE INICIO DE MÚSICA con el primer clic
