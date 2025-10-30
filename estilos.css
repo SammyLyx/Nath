@@ -1,13 +1,26 @@
+/*
+ * Archivo: estilos.css (Versión Final y Optimizada)
+ * * INCLUYE:
+ * 1. Estilos base y variables neón.
+ * 2. Diseño del Header con fondo sólido para legibilidad.
+ * 3. Diseño del Jardín con la imagen de fondo aplicada SOLO al contenedor del jardín.
+ * 4. Optimización de rendimiento (animación de viento por CSS).
+ * 5. AJUSTE DE Z-INDEX para que los girasoles visitados pasen al fondo.
+ * 6. Estilos de visores (Foto y Video).
+ * 7. Control de música flotante.
+ */
+
 /* ================================================= */
 /* 01. GENERALES Y TIPOGRAFÍA                        */
 /* ================================================= */
 
 :root {
     --color-fondo: #0e0e1a;
-    --color-neon-principal: #f89645; /* Rosa Neón/Magenta */
+    --color-neon-principal: #fa74ff; /* Rosa Neón/Magenta */
     --color-neon-secundario: #ffd866; /* Amarillo Neón */
-    --color-neon-terciario: #07fdc0; /* Azul Neón/Cian */
-    --sombra-neon: 0 0 5px var(--color-neon-principal), 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 40px var(--color-neon-principal);
+    --color-neon-terciario: #66e0ff; /* Azul Neón/Cian */
+    /* Sombra ajustada para el título principal */
+    --sombra-neon: 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 30px var(--color-neon-principal), 0 0 50px var(--color-neon-principal);
     --sombra-neon-amarillo: 0 0 5px var(--color-neon-secundario), 0 0 10px var(--color-neon-secundario);
     --sombra-neon-azul: 0 0 5px var(--color-neon-terciario), 0 0 10px var(--color-neon-terciario);
 }
@@ -20,10 +33,10 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--color-fondo);
+    background-color: var(--color-fondo); /* Fondo sólido de respaldo */
     color: #f0f0f0;
-    overflow-x: hidden; /* Previene scroll lateral por animaciones */
-    position: relative; /* Necesario para elementos fijos como el control de música */
+    overflow-x: hidden; 
+    position: relative; 
     min-height: 100vh;
 }
 
@@ -65,10 +78,10 @@ p {
 /* Animación de brillo sutil para el título principal */
 @keyframes brillo-suave {
     0% {
-        text-shadow: 0 0 5px var(--color-neon-principal), 0 0 15px var(--color-neon-principal);
+        text-shadow: 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal);
     }
     100% {
-        text-shadow: 0 0 8px var(--color-neon-principal), 0 0 20px var(--color-neon-principal), 0 0 30px var(--color-neon-principal);
+        text-shadow: var(--sombra-neon);
     }
 }
 
@@ -82,7 +95,8 @@ p {
     padding: 50px 20px 20px;
     position: relative;
     z-index: 10;
-    background: rgba(14, 14, 26, 0.9); /* Fondo semi-transparente para destacar */
+    /* AJUSTE CLAVE: Fondo SÓLIDO para MÁXIMO CONTRASTE y legibilidad del texto */
+    background: var(--color-fondo); 
     border-bottom: 2px solid var(--color-neon-principal);
 }
 
@@ -130,31 +144,40 @@ p {
 .jardin-contenedor {
     position: relative;
     width: 100%;
-    min-height: calc(100vh - 180px); /* Ajustar según la altura del header */
+    /* Altura mínima para asegurar que los 25 girasoles quepan */
+    min-height: 120vh; 
     overflow: hidden;
-    padding-bottom: 20px; /* Espacio inferior para el girasol más bajo */
+    padding-bottom: 50px; 
+
+    /* La imagen de fondo empieza aquí, justo debajo del .hero */
+    background-image: url('./imagenes/fondo.jpg'); 
+    background-size: cover; 
+    background-position: center bottom;
+    background-attachment: fixed;
 }
 
 .girasol {
     position: absolute;
     cursor: pointer;
-    transform-origin: center bottom; /* El punto de pivote para el balanceo */
-    transition: transform 0.3s;
+    transform-origin: center bottom; 
+    /* Transición para la animación de balanceo y el cambio de opacidad al ser visitado */
+    transition: transform 0.3s, opacity 0.5s; 
     will-change: transform, opacity;
+    
+    /* AJUSTE CLAVE: z-index base para que todos los girasoles no visitados estén al frente */
+    z-index: 1; 
 }
 
 /* 🌻 OPTIMIZACIÓN DE RENDIMIENTO: ANIMACIÓN DE VIENTO VIA CSS 🌻 */
 
-/* 1. Definición de la animación de viento (mucho más eficiente) */
 @keyframes balanceo {
     0%, 100% { transform: rotateZ(0deg); }
-    50% { transform: rotateZ(3deg); } /* Rotación sutil de 3 grados */
+    50% { transform: rotateZ(3deg); } 
 }
 
-/* 2. Aplicación de la animación de viento (el JS añade la clase) */
 .girasol-animado-css {
     animation: balanceo 10s ease-in-out infinite alternate;
-    will-change: transform; /* Hint al navegador para optimizar */
+    will-change: transform; 
 }
 
 /* Estructura del Girasol */
@@ -163,11 +186,11 @@ p {
     position: absolute;
     width: 4px;
     height: 300px;
-    background-color: #008000; /* Verde oscuro */
+    background-color: #008000; 
     bottom: -300px; 
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 1; /* Debe ser z-index: 1 (normal) para no desaparecer al ser visitado */
 }
 
 .centro {
@@ -176,9 +199,9 @@ p {
     height: 100%;
     border-radius: 50%;
     
-    /* 🌻 OPTIMIZACIÓN: Estilo BASE del centro. La imagen se carga solo en el pop-up 🌻 */
-    background-color: #4b2a0c; /* Café oscuro base */
-    border: 3px solid #ffc90e; /* Borde amarillo claro */
+    /* Estilo BASE del centro sin cargar la foto inicialmente */
+    background-color: #4b2a0c; 
+    border: 3px solid #ffc90e; 
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
     
     top: 0;
@@ -196,7 +219,7 @@ p {
     transform-origin: center bottom;
     box-shadow: 0 0 5px var(--color-neon-secundario);
     z-index: 2;
-    top: calc(50% - 15px); /* Posicionar el centro del pétalo sobre el centro de la flor */
+    top: calc(50% - 15px); 
     left: calc(50% - 15px);
     will-change: transform, opacity;
 }
@@ -250,7 +273,7 @@ p {
 #visor-imagen {
     max-width: 100%;
     height: auto;
-    max-height: 40vh; /* Limitar altura de la imagen en móviles */
+    max-height: 40vh; 
     display: block;
     border-radius: 5px;
     object-fit: contain;
@@ -343,7 +366,7 @@ p {
     position: relative;
     max-width: 95%;
     max-height: 95%;
-    width: 800px; /* Ancho máximo para el video */
+    width: 800px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -354,10 +377,10 @@ p {
     background-color: #1a1a2e;
     padding: 10px;
     border: 3px solid var(--color-neon-principal);
-    box-shadow: var(--sombra-neon);
+    box-shadow: 0 0 10px var(--color-neon-principal), 0 0 20px var(--color-neon-principal);
     border-radius: 10px;
     width: 100%;
-    aspect-ratio: 16 / 9; /* Formato de video estándar */
+    aspect-ratio: 16 / 9; 
 }
 
 #video-player {
@@ -379,7 +402,7 @@ p {
     border-radius: 50%;
     cursor: pointer;
     line-height: 1.2;
-    box-shadow: var(--sombra-neon);
+    box-shadow: 0 0 10px var(--color-neon-principal);
     z-index: 2001;
     transition: transform 0.2s;
 }
@@ -452,7 +475,7 @@ p {
 
 .control-musica-flotante.activo {
     border-color: var(--color-neon-principal);
-    box-shadow: var(--sombra-neon);
+    box-shadow: 0 0 15px var(--color-neon-principal);
     animation: pulsar-musica 2s infinite;
 }
 
